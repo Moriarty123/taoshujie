@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>淘书街公告：<?php echo session('notice_title'); ?></title>
+		<link rel="shortcut icon" href="../../../../static/img/shu.ico" />
+		<link rel="stylesheet" href="../../../../static/css/front/common_top.css" />
+		<link rel="stylesheet" href="../../../../static/css/front/notice_detail.css" />
+	</head>
+	<body>
+		
+		{include file='../application/index/view/common/common_header.html'}
+		
+		<!--中间部分-->
+		<div class="notice">
+			<div class="n_left">
+				<div class="n_title">公告</div>
+				<ul>
+				{foreach $ret as $value}
+					<li><a href="/index/notice/index?id={$value.notice_id}">{$value.notice_title}</a></li>
+				
+				{/foreach}
+				</ul>
+			</div>
+			<div class="n_info">
+				<div class="info_title">{$vo.notice_title}</div>
+				<div class="info_author">
+					<span style="margin-left: 0px;">作者：{$vo.name}</span>
+					<span>浏览量：{$vo.view_time}</span>
+					<span>发布时间：{$vo.notice_time|date="Y-m-d h:m:s",###}</span>
+				</div>
+				<div class="info_content">
+					{$vo.notice_content}
+
+
+			
+					
+				</div>
+			</div>
+		</div>
+
+		<div style="clear: both; margin-top: 105px;">
+		{include file='../application/index/view/common/common_foot.html'}
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../../static/js/front/common_top.js" ></script>
+</html>

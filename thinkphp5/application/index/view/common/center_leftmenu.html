@@ -1,0 +1,63 @@
+<div class="personal_info">
+			<div class="menu">
+				<div class="menu_title">个人设置</div>
+				<ul>
+					<li class="menu_li">
+						<a href="/index/personalcenter/edit" class="menu_a" id="baseLink">基本信息</a>
+					</li>
+					<li class="menu_li">
+						<a href="/index/updatepwd/index" class="menu_a" id="passwordLink">修改密码</a>
+					</li>
+				</ul>
+				
+				<div class="menu_title">订单</div>
+				<ul>
+					<li class="menu_li"><a href="/index/orderreceive/alist" class="menu_a" id="orderreceiveLink">收到的订单</a></li>
+					<li class="menu_li"><a href="/index/personalorder/alist" class="menu_a" id="personalorderLink">我下的订单</a></li>
+				</ul>
+				
+				<div class="menu_title">书籍</div>
+				<ul>
+					<li class="menu_li"><a href="/index/personalsale/index" class="menu_a" id="personalsaleLink">出售书籍</a></li>
+					<li class="menu_li"><a href="/index/personalinquiry/index" class="menu_a" id="personalinquiryLink">求购书籍</a></li>
+				</ul>
+				
+				<div class="menu_title">留言</div>
+				<ul>
+					<li class="menu_li"><a href="/index/personalbcomment/index" class="menu_a" id="personalbcommentLink">出售留言</a></li>
+					<li class="menu_li"><a href="/index/personalscomment/index" class="menu_a" id="personalscommentLink">求购留言</a></li>
+				</ul>
+			</div>
+			<script type="text/javascript" src="../../../../static/js/front/jquery.min.js"></script>
+			<script type="text/javascript">
+             $(document).ready(function() {
+	var path = window.document.location.pathname;
+	var arr = path.split("/");
+	switch(arr[2]){
+		case 'personalcenter':
+			$("#baseLink").addClass('on')
+			break;
+		case 'updatepwd':
+			$("#passwordLink").addClass('on')
+			break;
+		case 'orderreceive':
+			$("#orderreceiveLink").addClass('on')
+			break;
+		case 'personalorder':
+			$("#personalorderLink").addClass('on')
+			break;
+		case 'personalsale':
+			$("#personalsaleLink").addClass('on')
+			break;
+		case 'personalinquiry':
+			$("#personalinquiryLink").addClass('on')
+			break;
+		case 'personalbcomment':
+			$("#personalbcommentLink").addClass('on')
+			break;
+		case 'personalscomment':
+			$("#personalscommentLink").addClass('on')
+			break;
+	}
+});
+</script>

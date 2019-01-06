@@ -1,0 +1,132 @@
+<!-- 头部 -->
+<div class="head">
+	<div class="headL">
+		<img class="headLogo" src="/static/img/admin_logo.png"/>
+	</div>
+	<div class="headR">
+		<span style="margin-bottom: 8px;display: inline-block;">
+			<!-- 日历 -->
+			<SCRIPT type=text/javascript src="../../../js/back/clock.js"></SCRIPT>
+			<!-- <SCRIPT type=text/javascript>showcal();</SCRIPT> -->
+        </span>
+        <br />
+        <div class="head_op">
+	    	{eq name="Think.session.admin_id" value=""}
+	    	<a href="/admin/login/index" >【登录】</a>
+	    	{else}
+	    	<span>欢迎你，</span>
+	    	<a href="" >【{$Think.session.admin_name}】</a>
+	    	<a href="/admin/login/logout" >【安全退出】</a>
+	    	{/eq}
+			<a href="/index/index/index">【回到前台】</a>
+			<a style="display:inline-block;cursor: pointer;" onclick="show()">【客户服务】</a>
+        </div>
+	</div>
+</div>
+<!-- 实时通讯 -->
+<div style="width: 500px;height: 490px;border: 2px solid #00C7B4;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%); border-radius: 5px;padding:2px 0px;background: #FFF;z-index: 1200;display: none;" id="jstx">
+		<div class="title-content">
+			<div class="tao-img"><img src="../../../../static/img/taoshujie.png"></div>
+			<div class="chat-close"><i class="fas fa-chevron-circle-down close" onclick="showno()"></i></div>
+			<div class="chat-title">
+				<div class="chat-text">
+					<div class="chat-people">人工客服--小美</div>
+					<div class="chat-mags">正在为您服务，请稍等</div>
+				</div>
+				<div class="chat-img"><img src="../../../../static/img/1.jpg"></div>
+			</div>
+		</div>
+		<!-- 内容信息 -->
+		<div style="width: 100%;height: 60%;overflow: hidden;overflow-y:scroll;background:#F5F5F5;" id="yujia">
+			
+		</div>
+		<!-- 内容信息结束 -->
+		<div class="send-content" >
+			<!-- 表情 -->
+			<div class="send-icon"><i class="far fa-grin-squint smile"  onclick="slideDownEmojiBox()"></i>
+				<div id="emoji-box" >
+					
+					<div  class="cha" style="height: 28px">
+						<span onclick="slideUpEmojiBox()">X</span>
+					</div>
+					<div style="height: 180px;overflow: hidden;overflow-y: scroll;">
+						{for start="1" end="132"}
+						<img src="/static/img/qq/{$i}.gif" style="margin: 5px" onclick="selectEmoji(this)">
+						{/for}
+					</div>
+				</div>
+			
+			</div>
+			<!-- 表情结束 -->
+			<div class="send-box" contenteditable="true" id="aaa"></div>
+			<div class="send-button" onclick="chat()"><i class="fas fa-location-arrow sbutton"></i></div>
+			
+		</div>
+
+	</div>
+<script type="text/javascript" src="../../../../static/js/front/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.goeasy.io/goeasy.js"></script>
+<script type="text/javascript">
+			function show(){
+				$('#jstx').fadeIn();
+			}
+			function showno(){
+				$('#jstx').fadeOut();
+			}
+			var b = document.getElementById('aaa');
+			var goEasy = new GoEasy({
+			appkey: 'BC-beea5de574d04e92ba6e75553432fcfe'
+			});
+
+			var a = document.getElementById('yujia');
+			goEasy.subscribe({
+			channel:'yujialiang',
+			onMessage: function(message){
+				
+			   $('#yujia').append("<div style='width:100%;height:50px;'><span style='display: inline-block;height: 30px;line-height: 30px;background:#FFF;border-radius: 5px;margin-top:5px;margin-left:10px;padding:3px 10px;font-size:15px;'>"+message.content+'</span></div>');
+
+
+				
+			}
+			});
+
+			//发送信息
+			function chat(){
+
+				goEasy.publish({
+				channel:'yujia',
+				message: b.innerHTML
+				});
+				var w = b.innerHTML;
+				$('#yujia').append("<div style='width:100%;height:50px;'><span style='display: inline-block;float:right;height: 30px;line-height: 30px;background:#0cecd8;border-radius: 5px;margin-top:5px;margin-right:10px;padding:3px 10px;font-size:15px;'>"+w+'</span></div>');
+
+
+				$('#aaa').html("");
+			}
+
+			//选择表情
+			function slideDownEmojiBox(){
+				$('#emoji-box').slideDown();
+			}
+			function slideUpEmojiBox(){
+				$('#emoji-box').slideUp();
+			}
+			function selectEmoji(obj){
+				var img_src=$(obj).attr('src');
+				var html="<img src='"+img_src+"'/>";
+				$('#aaa').append(html);
+				slideUpEmojiBox();
+			}
+
+			//滚动条
+			function sc() 
+			{ 
+			    var e=document.getElementById("yujia");
+			    if(e)
+			        e.scrollTop=e.scrollHeight;          
+			}
+			window.onload = function(){
+			//等加载完再运行
+			    setInterval("sc()",1000);
+			}
+</script>

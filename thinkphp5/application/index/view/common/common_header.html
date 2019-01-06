@@ -1,0 +1,204 @@
+<div class="q" id="q">
+	<div class="top_content">
+		<div class="welcome_txt">
+			你好，欢迎来到淘书街！
+		</div>
+		<div class="right">
+			请 <a href='/index/login/index' target="_blank">登录</a> 
+			<a href='/index/register/index' style='color: #00CFBE; padding-left: 4px;' target="_blank">免费注册</a>
+			<span class='shu'>|</span>
+			<a href='/index/shopcar/index' target="_blank">购物车</a> <span class='shu'>|</span>
+			<a href='/index/addsalebook/index' target="_blank">我要出售</a> <span class='shu'>|</span>
+			<a href='/index/addinquirybook/index' target="_blank">我要求购</a> <span class='shu'>|</span>
+			<a href='/admin/login/index' target="_blank">进入后台</a><span class='shu'>|</span><a style="display: inline-block;" onclick="show()">联系客服</a>
+		</div>
+	</div>
+</div>
+<div class="q" id="q1">
+	<div class="top_content">
+		<div class="welcome_txt">
+			你好，欢迎来到淘书街！
+		</div>
+		<div class="right">
+			<a href="/index/personalcenter/edit"><?php echo session('username');?></a> <span class='shu'>|</span>
+			<a href='/index/shopcar/index'>购物车</a> <span class='shu'>|</span>
+			<a href='/index/addsalebook/index' target="_blank">我要出售</a> <span class='shu'>|</span>
+			<a href='/index/addinquirybook/index' target="_blank">我要求购</a> <span class='shu'>|</span>
+			<a style="display: inline-block;cursor: pointer;" onclick="show()">联系客服</a><span class='shu'>|</span>
+			<a href='/admin/login/index' target="_blank">进入后台</a>
+			
+		</div>
+	</div>
+</div>
+<?php $a = session('username');?>
+{if(!isset($a) || session('username')=='')} 
+<script type='text/javascript'>
+	document.getElementById('q').style.display = 'block';
+	document.getElementById('q1').style.display = 'none';
+</script>
+
+{else /}
+<script type='text/javascript'>
+	document.getElementById('q1').style.display = 'block';
+	document.getElementById('q').style.display = 'none';
+</script>
+{/if}
+<div class="w">
+	<!--头部-->
+	<div class="top">
+		<div class="logo">
+			<a href="?"><img src="/static/img/taoshujie.png" /></a>
+		</div>
+		<form action="/index/search/searchsale" method="post" class="search" onsubmit="checkSearch();">
+			<div class="search_div">
+				<input type="text" placeholder="出售书籍名称" name="keyword" class="search_a"/>
+				<input type="submit" class="search_b" value="搜索"></input>
+			</div>
+		</form>
+	</div>
+</div>
+<!--导航栏-->
+<div class="nav">
+	<div class="nav_bar">
+		<div class="all_type nav_active">
+			全部图书分类
+			<span class="all_type_a"></span>
+		</div>
+		<div class="nav_r">
+			<ul id="nav_qa">
+				<a href="/index/index/index"><li>首页</li></a>
+				<a href="/index/type/showAllTypeSecond"><li>分类</li></a>
+				<a href="/index/sale/showAllSaleBook"><li>出售</li></a>
+				<a href="/index/inquire/showAllInquireBook"><li>求购</li></a>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../../../../static/js/front/jquery.min.js"></script>
+<script type="text/javascript">
+      //菜单栏的点击颜色切换
+   	    var pn = location.pathname;
+        var as = document.getElementById('nav_qa').getElementsByTagName("a");   
+        for (var i = 0, j = as.length; i < j; i++){
+           
+            if(pn.length>3){
+       
+                if (as[i].href.indexOf(pn) != -1) {as[i].className = 'nav_active'; break; }
+            }
+        }
+        if(pn.length<3){as[0].className = 'nav_active';}
+
+        function show(){
+        	$('#jstx').fadeIn();
+        }
+        function showno(){
+        	$('#jstx').fadeIn();
+        }
+
+</script>
+
+<!-- 实时通讯 -->
+<div style="width: 500px;height: 490px;border: 2px solid #00C7B4;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%); border-radius: 5px;padding:2px 0px;background: #FFF;z-index: 1200;display:none;" id="jstx">
+		<div class="title-content">
+			<div class="tao-img"><img src="../../../../static/img/taoshujie.png"></div>
+			<div class="chat-close"><i class="fas fa-chevron-circle-down close" onclick="showno()"></i></div>
+			<div class="chat-title">
+				<div class="chat-text">
+					<div class="chat-people">人工客服--小美</div>
+					<div class="chat-mags">正在为您服务，请稍等</div>
+				</div>
+				<div class="chat-img"><img src="../../../../static/img/1.jpg"></div>
+			</div>
+		</div>
+		<!-- 内容信息 -->
+		<div style="width: 100%;height: 60%;overflow: hidden;overflow-y:scroll;background:#F5F5F5;" id="yujia">
+			
+		</div>
+		<!-- 内容信息结束 -->
+		<div class="send-content" >
+			<!-- 表情 -->
+			<div class="send-icon"><i class="far fa-grin-squint smile"  onclick="slideDownEmojiBox()"></i>
+				<div id="emoji-box" >
+					
+					<div  class="cha" style="height: 28px">
+						<span onclick="slideUpEmojiBox()">X</span>
+					</div>
+					<div style="height: 180px;overflow: hidden;overflow-y: scroll;">
+						{for start="1" end="132"}
+						<img src="/static/img/qq/{$i}.gif" style="margin: 5px" onclick="selectEmoji(this)">
+						{/for}
+					</div>
+				</div>
+			
+			</div>
+			<!-- 表情结束 -->
+			<div class="send-box" contenteditable="true" id="aaa"></div>
+			<div class="send-button" onclick="chat()"><i class="fas fa-location-arrow sbutton"></i></div>
+			
+		</div>
+
+	</div>
+
+<script type="text/javascript" src="http://cdn.goeasy.io/goeasy.js"></script>
+<script type="text/javascript" charset="UTF-8">
+		var a = document.getElementById('aaa');
+		var goEasy = new GoEasy({
+		appkey: 'BC-beea5de574d04e92ba6e75553432fcfe'
+		});
+        
+        function showno(){
+        	$('#jstx').fadeOut();
+        }
+
+		
+		goEasy.subscribe({
+		channel:'yujia',
+		onMessage: function(message){
+			
+			  	$('#yujia').append("<div style='width:100%;height:50px;'><span style='display: inline-block;height:40px;background:#FFF;border-radius: 5px;margin-top:5px;margin-left:10px;padding:5px 10px;font-size:15px;line-height:30px;'>"+message.content+'</span></div>');
+			
+		}
+
+
+		});
+		//发送信息
+		function chat(){
+
+			goEasy.publish({
+			channel:'yujialiang',
+			message: a.innerHTML
+			});
+			var w = a.innerHTML;
+			$('#yujia').append("<div style='width:100%;height:50px;'><span style='display: inline-block;float:right;height:40px;background:#0cecd8;border-radius: 5px;margin-top:5px;margin-right:10px;padding:5px 10px;font-size:15px;line-height:30px;'>"+w+'</span></div>');
+
+			$('#aaa').html("");
+		}
+
+		//选择表情
+			function slideDownEmojiBox(){
+				$('#emoji-box').slideDown();
+			}
+			function slideUpEmojiBox(){
+				$('#emoji-box').slideUp();
+			}
+			function selectEmoji(obj){
+				var img_src=$(obj).attr('src');
+				var html="<img src='"+img_src+"'/>";
+				$('#aaa').append(html);
+				slideUpEmojiBox();
+			}
+
+		//滚动条
+		function sc() 
+		{ 
+	    var e=document.getElementById("yujia");
+	    if(e)
+	        e.scrollTop=e.scrollHeight;          
+		}
+		$(document).ready(function(){
+		//等加载完再运行
+		    setInterval("sc()",10);
+
+		});
+</script>
+<!-- 实时通讯 -->
